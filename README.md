@@ -4,11 +4,13 @@ Upload a conveyancing matter PDF, ask questions, and get cited answers grounded 
 
 ## Try it (recruiter)
 
-1. Open the deployed frontend URL (Vercel).
-2. Upload a matter PDF (sample files are in `sample_documents/`).
+**Live demo:** https://legal-document-rag.vercel.app
+
+1. Open the link above.
+2. Upload a matter PDF (samples in `sample_documents/`).
 3. Ask a question, then click citations to inspect the source chunks.
 
-**Note:** The free backend may sleep after idle time — the first request can take ~30–60 seconds.
+API: https://legal-rag-api.vercel.app
 
 ## Local development
 
@@ -39,8 +41,10 @@ Open http://localhost:3000
 
 ## Deploy
 
-- **Backend:** Render (`render.yaml`) — set `OPENAI_API_KEY` and `CORS_ORIGINS` (your Vercel URL).
-- **Frontend:** Vercel — set `NEXT_PUBLIC_API_URL` to the Render service URL.
+Both apps are on Vercel:
+
+- **Frontend:** set `NEXT_PUBLIC_API_URL` to the API URL.
+- **Backend:** set `OPENAI_API_KEY` and `CORS_ORIGINS` (frontend URL). `render.yaml` remains as an alternate host option.
 
 ## Notes
 

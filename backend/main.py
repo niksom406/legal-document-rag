@@ -23,7 +23,6 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from fastapi.staticfiles import StaticFiles
 from openai import AsyncOpenAI
 from pydantic import BaseModel
 
@@ -36,8 +35,13 @@ load_dotenv()
 
 CHAT_MODEL = os.getenv("OPENAI_CHAT_MODEL", "gpt-4.1-mini")
 EMBEDDING_MODEL = os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small")
-UPLOADS_DIR = Path(__file__).parent / "uploads"
-UPLOADS_DIR.mkdir(exist_ok=True)
+# Vercel Functions only allow writes under /tmp
+UPLOADS_DIR = (
+    Path("/tmp/uploads")
+    if os.getenv("VERCEL")
+    else Path(__file__).parent / "uploads"
+)
+UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
 
 # Comma-separated list; defaults keep local Next.js ports working.
 _CORS_DEFAULT = "http://localhost:3000,http://localhost:3001"
